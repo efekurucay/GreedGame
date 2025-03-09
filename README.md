@@ -93,7 +93,7 @@ chmod +x run_tests.sh  # (Only needed once)
 
 ## 📌 **Rules & Guidelines**
 ### **✅ Do's**
-✔ **To learn** you can install the game **greed** on any linux terminal (or wsl) and play with it. See the screenshot below.   
+✔ **To learn** you can install the game **greed** on any linux terminal (or wsl) [`sudo apt install greed` etc.] and play with it. See the screenshot below.   
 ✔ **Implement** your own unique strategy.  
 ✔ **Follow** the movement rules strictly.  
 ✔ **Test** your code before submitting.  
