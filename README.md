@@ -18,12 +18,15 @@ GreedGame/
 │   │   ├── GameLogger.java        # Logs game results
 │   │   ├── Tester.java            # Runs student submissions
 │   ├── players/
+│   │   ├── Player12345.java       # A player
+│   │   ├── Player67890.java       # Another player
+│   │   ├── ...                    # other players...
 │── students.txt                   # List of student IDs
-│── boards/                         # Stores game instances for fair testing
-│── results/                        # Stores game results per player
-│── snapshots/                      # Stores game step-by-step visual logs (optional)
-│── run_tests.sh                    # Automates compilation and execution
-│── README.md                       # This file
+│── boards/                        # Stores game instances for fair testing
+│── results/                       # Stores game results per player
+│── snapshots/                     # Stores game step-by-step visual logs (optional)
+│── run_tests.sh                   # Automates compilation and execution
+│── README.md                      # This file
 ```
 
 ## 🎮 **Game Rules**
