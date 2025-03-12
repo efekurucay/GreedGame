@@ -4,7 +4,7 @@ import java.util.*;
 
 public class GameLogger {
     private List<int[][]> boardHistory = new ArrayList<>();
-    private List<Move> moveHistory = new ArrayList<>();
+    private List<int[]> moveHistory = new ArrayList<>(); // Stores (dRow, dCol) instead of absolute positions
     private Board board;
 
     public GameLogger(Board board) {
@@ -12,10 +12,10 @@ public class GameLogger {
         saveState();
     }
 
-    public void logMove(Move move) {
-        moveHistory.add(move);
+    public void logMove(int dRow, int dCol) {
+        moveHistory.add(new int[]{dRow, dCol}); // ✅ Log direction-based move
         saveState();
-        printBoardState(move);  // Print board after each move
+        printBoardState(dRow, dCol);
     }
 
     private void saveState() {
@@ -28,16 +28,16 @@ public class GameLogger {
         boardHistory.add(snapshot);
     }
 
-    private void printBoardState(Move move) {
-        System.out.println("\nStep " + moveHistory.size() + " - Player moved to: (" + move.getRow() + ", " + move.getCol() + ")");
+    private void printBoardState(int dRow, int dCol) {
+        System.out.println("\nStep " + moveHistory.size() + " - Player moved direction: (" + dRow + ", " + dCol + ")");
 
         int[][] latestBoard = boardHistory.get(boardHistory.size() - 1);
         for (int r = 0; r < latestBoard.length; r++) {
             for (int c = 0; c < latestBoard[r].length; c++) {
-                if (r == move.getRow() && c == move.getCol()) {
-                    System.out.print(" P ");  // Show player's position
+                if (r == board.getPlayerRow() && c == board.getPlayerCol()) {
+                    System.out.print(" P ");  // ✅ Show player's current position
                 } else if (latestBoard[r][c] == 0) {
-                    System.out.print(" . ");  // Empty cells already visited
+                    System.out.print(" . ");  // ✅ Empty cells already visited
                 } else {
                     System.out.print(" " + latestBoard[r][c] + " ");
                 }

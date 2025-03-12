@@ -19,6 +19,7 @@ public class Player67890 extends Player {
         if (possibleMoves.isEmpty()) {
             return null;
         }
-        return possibleMoves.get(random.nextInt(possibleMoves.size())); // Picks a random direction
+
+        return possibleMoves.get(random.nextInt(possibleMoves.size())); // ✅ Picks a random direction
     }
 }

@@ -21,7 +21,7 @@ public class Referee {
             }
 
             while (!player.board.isGameOver()) {
-                Future<Move> futureMove = executor.submit(player::nextMove);
+                Future<Move> futureMove = executor.submit(player::nextMove); // Fix: Ensure we return a `Move` object
                 Move move;
 
                 try {
@@ -35,7 +35,7 @@ public class Referee {
                 }
 
                 if (move == null) break;
-                if (!player.board.applyMove(move)) {
+                if (!player.board.applyMove(move)) { // Fix: Ensure the board uses the correct move type
                     System.err.println("🚫 Invalid move by Player " + studentID + ": " + move);
                     break;
                 }

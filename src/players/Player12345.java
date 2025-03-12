@@ -1,6 +1,6 @@
 package players;
-
 import game.*;
+
 import java.util.List;
 
 public class Player12345 extends Player {
@@ -12,21 +12,9 @@ public class Player12345 extends Player {
     @Override
     public Move nextMove() {
         List<Move> possibleMoves = board.getPossibleMoves();
-        if (possibleMoves.isEmpty()) {
-            return null; // No moves left
-        }
+        if (possibleMoves.isEmpty()) return null;
 
-        Move bestMove = null;
-        int maxSteps = -1;
-
-        // Picks the move that allows the furthest movement (just as an example strategy)
-        for (Move move : possibleMoves) {
-            int stepSize = board.getStepSizeForDirection(move.getDRow(), move.getDCol());
-            if (stepSize > maxValue) {
-                maxValue = stepSize;
-                bestMove = move;
-            }
-        }
-        return bestMove;
+        // Simple strategy: Always pick the first available direction
+        return possibleMoves.get(0);
     }
 }
