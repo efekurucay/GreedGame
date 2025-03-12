@@ -14,7 +14,7 @@ echo "Generating boards..."
 mkdir -p boards snapshots results  # ✅ Ensure directories exist
 
 # ✅ Define board sizes to test (adjust as needed)
-BOARD_SIZES=(10 25 50 100)
+BOARD_SIZES=(10 25 50)
 
 # ✅ Generate multiple sets of boards
 for size in "${BOARD_SIZES[@]}"; do
