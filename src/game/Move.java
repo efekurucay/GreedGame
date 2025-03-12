@@ -1,24 +1,22 @@
 package game;
 
 public class Move {
-    private final int row;
-    private final int col;
-    
-    public Move(int row, int col) {
-        this.row = row;
-        this.col = col;
+    public final int dRow;
+    public final int dCol;
+
+    public Move(int dRow, int dCol) {
+        this.dRow = dRow;
+        this.dCol = dCol;
     }
-    
-    public int getRow() {
-        return row;
-    }
-    
-    public int getCol() {
-        return col;
-    }
-    
+
+    private final int dRow;
+    private final int dCol;
+
+    public int getDRow() { return dRow; }
+    public int getDCol() { return dCol; }
+
     @Override
     public String toString() {
-        return "Move to (" + row + ", " + col + ")";
+        return String.format("Move[dRow=%d, dCol=%d]", dRow, dCol);
     }
 }

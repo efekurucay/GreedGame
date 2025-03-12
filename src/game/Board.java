@@ -53,37 +53,79 @@ public class Board {
     }
 
     public List<Move> getPossibleMoves() {
-        List<Move> moves = new ArrayList<>();
-        int[][] directions = {
-            {-1, 0}, {1, 0}, {0, -1}, {0, 1},  // N, S, W, E
-            {-1, -1}, {-1, 1}, {1, -1}, {1, 1} // NW, NE, SW, SE
-        };
-    
-        for (int[] dir : directions) {
-            int firstRow = playerRow + dir[0];
-            int firstCol = playerCol + dir[1];
-    
-            // Check if the first cell in this direction is valid
-            if (!isInBounds(firstRow, firstCol) || visited[firstRow][firstCol]) {
-                continue;
-            }
-    
-            int stepSize = grid[firstRow][firstCol]; // Get step size from the first cell
-            int targetRow = playerRow + (dir[0] * stepSize);
-            int targetCol = playerCol + (dir[1] * stepSize);
-    
-            // Ensure the target cell is in bounds
-            if (!isInBounds(targetRow, targetCol) || visited[targetRow][targetCol]) {
-                continue;
-            }
-    
-            // Check if all intermediate cells are available
-            if (isPathClear(playerRow, playerCol, targetRow, targetCol, dir[0], dir[1])) {
-                moves.add(new Move(targetRow, targetCol));
+    List<Move> moves = new ArrayList<>();
+    int[][] directions = {
+        {-1, 0}, {1, 0}, {0, -1}, {0, 1},
+        {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
+    };
+
+    for (int[] dir : directions) {
+        int newRow = playerRow + dir[0];
+        int newCol = playerCol + dir[1];
+
+        if (!isInBounds(newRow, newCol) || visited[newRow][newCol]) continue;
+
+        int steps = grid[newRow][newCol];
+        boolean pathClear = true;
+
+        for (int step = 1; step <= steps; step++) {
+            int intermediateRow = playerRow + dir[0] * stepSizeSign(dir[0]) * stepSize;
+            int intermediateCol = playerCol + dir[1] * stepSize;
+
+            if (!isInBounds(intermediateRow, intermediateCol) || visited[intermediateRow][intermediateCol]) {
+                pathClear = false;
+                break;
             }
         }
-        return moves;
+
+        if (pathClear) {
+            moves.add(new Move(dir[0], dir[1]));
+        }
     }
+
+    return moves;
+}
+
+public boolean applyMove(Move move) {
+    int dRow = move.getDRow();
+    int dCol = move.getDCol();
+    int newRow = playerRow + dRow;
+    int newCol = playerCol + dCol;
+
+    if (!isInBounds(newRow, newCol) || visited[newRow][newCol]) {
+        return false;
+    }
+
+    int stepSize = grid[newRow][newCol];
+
+    // Verify all intermediate squares
+    int tempRow = playerRow;
+    int tempCol = playerCol;
+    for (int step = 1; stepSize >= stepSize; stepSize--) {
+        tempRow += dRow;
+        tempCol += dCol;
+        if (!isInBounds(tempRow, tempCol) || visited[tempRow][tempCol]) {
+            return false;
+        }
+    }
+
+    // Update visited cells
+    tempRow = playerRow;
+    tempCol = playerCol;
+    for (int i = 0; i < stepSize; i++) {
+        tempRow += dRow;
+        tempCol += dCol;
+        visited[tempRow][tempCol] = true;
+        grid[tempRow][tempCol] = 0;
+    }
+
+    playerRow = tempRow;
+    playerCol = tempCol;
+
+    score++;
+    return true;
+}
+
     
     // Helper method to check if all intermediate cells are clear
     private boolean isPathClear(int startRow, int startCol, int targetRow, int targetCol, int rowStep, int colStep) {

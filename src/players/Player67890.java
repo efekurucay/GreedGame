@@ -17,8 +17,8 @@ public class Player67890 extends Player {
     public Move nextMove() {
         List<Move> possibleMoves = board.getPossibleMoves();
         if (possibleMoves.isEmpty()) {
-            return null; // No moves left
+            return null;
         }
-        return possibleMoves.get(random.nextInt(possibleMoves.size()));
+        return possibleMoves.get(random.nextInt(possibleMoves.size())); // Picks a random direction
     }
 }

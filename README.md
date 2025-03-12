@@ -39,9 +39,9 @@ GreedGame/
 1. **The player moves in one of 8 directions:**  
    - **N, S, E, W (↑ ↓ → ←)**  
    - **NW, NE, SW, SE (↖ ↗ ↙ ↘)**  
-2. **The movement distance is determined by the first non-deleted number in that direction.**
+2. Your submitted code must return a move direction (N, NE, E, SE, S, SW, W, NW) as a `Move`. **The movement distance is determined by the first non-deleted number in that direction.**
 3. **A move is valid only if:**
-   - The target cell exists within the board.
+   - The player can really move towards the target direction without going out of the boundaries or crosses a previously visited (thus deleted) square.
    - The player does not pass through or land on a **deleted cell** (visited cells are treated as obstacles).
 4. **Cells traversed during a move are deleted (replaced by `" "`).**
 5. **The game ends when no valid moves remain.**

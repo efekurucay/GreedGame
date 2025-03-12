@@ -1,7 +1,6 @@
 package players;
 
 import game.*;
-
 import java.util.List;
 
 public class Player12345 extends Player {
@@ -17,14 +16,15 @@ public class Player12345 extends Player {
             return null; // No moves left
         }
 
-        Move bestMove = possibleMoves.get(0);
-        int maxValue = board.getSize(); // Max number in the grid is 9
+        Move bestMove = null;
+        int maxSteps = -1;
 
+        // Picks the move that allows the furthest movement (just as an example strategy)
         for (Move move : possibleMoves) {
-            int value = board.getPossibleMoves().size();
-            if (value > maxValue) {
+            int stepSize = board.getStepSizeForDirection(move.getDRow(), move.getDCol());
+            if (stepSize > maxValue) {
+                maxValue = stepSize;
                 bestMove = move;
-                maxValue = value;
             }
         }
         return bestMove;

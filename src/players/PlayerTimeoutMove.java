@@ -4,7 +4,7 @@ import game.*;
 import java.util.List;
 
 public class PlayerTimeoutMove extends Player {
-    private int moveCounter = 0; // ✅ Track the number of moves
+    private int moveCounter = 0;
 
     public PlayerTimeoutMove(Board board) {
         super(board);
@@ -13,18 +13,12 @@ public class PlayerTimeoutMove extends Player {
     @Override
     public Move nextMove() {
         moveCounter++;
-        
-        // ✅ Simulate timeout after 3 valid moves
-        if (moveCounter > 3) {
+        if (moveCounter > 3) {  // Simulates a timeout after a few moves
             try {
-                System.out.println("PlayerTimeoutMove is thinking too long...");
-                Thread.sleep(3000); // ❗ 3 seconds delay (should trigger move timeout)
-            } catch (InterruptedException e) {
-                System.err.println("Move interrupted.");
-            }
+                Thread.sleep(5000); // Exceed timeout intentionally
+            } catch (InterruptedException ignored) {}
         }
-
         List<Move> possibleMoves = board.getPossibleMoves();
-        return possibleMoves.isEmpty() ? null : possibleMoves.get(0); // Picks first move
+        return possibleMoves.isEmpty() ? null : possibleMoves.get(0);
     }
 }
