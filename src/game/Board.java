@@ -24,6 +24,21 @@ public class Board {
         grid[startRow][startCol] = 0; // Ensure it is erased like other visited cells
     }
 
+    public Board(Board other) {
+        this.size = other.size;
+        this.grid = new int[size][size];
+        this.visited = new boolean[size][size];
+        this.playerRow = other.playerRow;
+        this.playerCol = other.playerCol;
+
+        // Copy grid values
+        for (int r = 0; r < size; r++) {
+            System.arraycopy(other.grid[r], 0, this.grid[r], 0, size);
+            System.arraycopy(other.visited[r], 0, this.visited[r], 0, size);
+        }
+    }
+
+
     public int getSize() {
         return size;
     }
@@ -153,15 +168,45 @@ public class Board {
     }
     
 
-    
+    public boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < getSize() && col >= 0 && col < getSize();
+    }
 
-    private boolean isValidMove(int row, int col) {
+
+    public boolean isValidMove(int row, int col) {
         return isInBounds(row, col) && !visited[row][col]; // ✅ Ensures visited cells (including the start) cannot be moved into
     }
 
     private boolean isInBounds(int row, int col) {
         return row >= 0 && row < size && col >= 0 && col < size;
     }
+
+    public int[][] copyGrid() {
+        int[][] copy = new int[getSize()][getSize()];
+        for (int i = 0; i < getSize(); i++) {
+            for (int j = 0; j < getSize(); j++) {
+                copy[i][j] = getValueAt(i, j);
+            }
+        }
+        return copy;
+    }
+
+    public double getCoveragePercentage() {
+        int visitedCount = 0;
+        int totalCells = size * size;
+
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                if (visited[r][c]) {
+                    visitedCount++;
+                }
+            }
+        }
+
+        return (100.0 * visitedCount) / totalCells;
+    }
+
+
 
     public void printBoard() {
         for (int i = 0; i < size; i++) {
