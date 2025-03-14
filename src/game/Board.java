@@ -7,6 +7,7 @@ public class Board {
     private final int size;
     private final int[][] grid;
     private final boolean[][] visited;
+    private int visitedCount; // ✅ New variable to track visited squares
     private int playerRow;
     private int playerCol;
     private int score;
@@ -15,6 +16,7 @@ public class Board {
         this.size = size;
         this.grid = grid;
         this.visited = new boolean[size][size];
+        this.visitedCount = 1; // ✅ Initialize with 1 since the start position is visited
         this.playerRow = startRow;
         this.playerCol = startCol;
         this.score = 1;
@@ -44,7 +46,7 @@ public class Board {
     }
 
     public int getScore() {
-        return score;
+        return visitedCount; // ✅ Score now based on visited squares
     }
 
     public int getValueAt(int row, int col) {
@@ -142,6 +144,7 @@ public class Board {
             playerCol += dCol;
             visited[playerRow][playerCol] = true;
             grid[playerRow][playerCol] = 0; // Clear the cell
+            visitedCount++;
         }
 
         score++;
@@ -223,3 +226,4 @@ public class Board {
         }
     }
 }
+
