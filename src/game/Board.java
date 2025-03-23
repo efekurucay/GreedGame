@@ -32,6 +32,8 @@ public class Board {
         this.visited = new boolean[size][size];
         this.playerRow = other.playerRow;
         this.playerCol = other.playerCol;
+        this.score = other.score;
+        this.visitedCount = other.visitedCount; // ✅ important!
 
         // Copy grid values
         for (int r = 0; r < size; r++) {
